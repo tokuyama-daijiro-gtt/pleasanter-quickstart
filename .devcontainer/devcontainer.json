@@ -1,0 +1,17 @@
+{
+  "name": "devcontainer-test",
+  "dockerComposeFile": [
+    "../compose.yaml",
+    "compose.devcontainer.yaml"
+  ],
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/devcontainer-test",
+  "runServices": [
+    "db",
+    "pleasanter",
+    "codedefiner",
+    "devcontainer"
+  ],
+  "shutdownAction": "stopCompose",
+  "remoteUser": "vscode"
+}
