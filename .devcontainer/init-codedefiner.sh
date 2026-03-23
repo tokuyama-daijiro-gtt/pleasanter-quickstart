@@ -12,4 +12,10 @@ if [[ ! -f "${marker_file}" ]]; then
   touch "${marker_file}"
 fi
 
-docker compose up -d pleasanter
+echo "[init] Starting pleasanter with: docker compose up -d pleasanter"
+if docker compose up -d pleasanter; then
+  echo "[init] pleasanter startup command succeeded."
+else
+  echo "[init] pleasanter startup command failed." >&2
+  exit 1
+fi
