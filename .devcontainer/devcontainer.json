@@ -6,10 +6,10 @@
   ],
   "service": "devcontainer",
   "workspaceFolder": "/workspaces/devcontainer-test",
+  "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
   "runServices": [
     "db",
     "pleasanter",
-    "codedefiner",
     "devcontainer"
   ],
   "shutdownAction": "stopCompose",
