@@ -8,8 +8,6 @@
   "workspaceFolder": "/workspaces/devcontainer-test",
   "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
   "runServices": [
-    "db",
-    "pleasanter",
     "devcontainer"
   ],
   "shutdownAction": "stopCompose",
