@@ -11,5 +11,11 @@
     "devcontainer"
   ],
   "shutdownAction": "stopCompose",
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "forwardPorts": [50001],
+  "portsAttributes": {
+    "50001": {
+      "label": "Pleasanter"
+    }
+  }
 }
