@@ -7,6 +7,7 @@
   "service": "devcontainer",
   "workspaceFolder": "/workspaces/devcontainer-test",
   "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
+  "postStartCommand": "bash .devcontainer/show-pleasanter-url.sh",
   "runServices": [
     "devcontainer"
   ],
