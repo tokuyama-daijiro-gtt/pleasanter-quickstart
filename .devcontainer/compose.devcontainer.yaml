@@ -4,5 +4,3 @@ services:
     container_name: devcontainer
     working_dir: /workspaces/devcontainer-test
     command: sleep infinity
-    volumes:
-      - ..:/workspaces/devcontainer-test:cached
