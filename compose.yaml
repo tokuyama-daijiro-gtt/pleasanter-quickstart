@@ -15,7 +15,11 @@ services:
 
   pleasanter:
     container_name: pleasanter
-    image: implem/pleasanter:${PLEASANTER_VERSION}
+    build:
+      context: ./pleasanter
+      dockerfile: ./Pleasanter/Dockerfile
+      args:
+        - VERSION=${PLEASANTER_VERSION}
     depends_on:
       - db
     ports:
@@ -27,7 +31,9 @@ services:
 
   codedefiner:
     container_name: codedefiner
-    image: implem/pleasanter:codedefiner
+    build:
+      context: ./pleasanter
+      dockerfile: ./CodeDefiner/Dockerfile
     depends_on:
       - db
     environment:
