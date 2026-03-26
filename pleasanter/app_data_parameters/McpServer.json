@@ -1,0 +1,36 @@
+{
+  "Enabled": true,
+  "ReadOnlyMode": false,
+  "LogExportLimit": 10000,
+  "RateLimit": {
+    "FixedWindow": {
+      "Enabled": true,
+      "PermitLimit": 60,
+      "WindowSeconds": 60
+    },
+    "SlidingWindow": {
+      "Enabled": false,
+      "PermitLimit": 30,
+      "WindowSeconds": 60,
+      "SegmentsPerWindow": 5
+    },
+    "TokenBucket": {
+      "Enabled": false,
+      "TokenLimit": 10,
+      "TokensPerPeriod": 1,
+      "ReplenishmentPeriodSeconds": 2
+    },
+    "Concurrency": {
+      "Enabled": true,
+      "PermitLimit": 5
+    }
+  },
+  "Logging": {
+    "EnableLoggingToDatabase": true,
+    "EnableLoggingToFile": false,
+    "NotLoggingIp": [
+      "127.0.0.1"
+    ],
+    "ResponseDataMaxLength": 65536
+  }
+}

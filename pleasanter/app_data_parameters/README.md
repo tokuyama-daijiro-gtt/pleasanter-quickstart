@@ -9,6 +9,7 @@
 
 - `Search.json`
 - `Service.json`
+- `McpServer.json`
 - 拡張機能用フォルダ/ファイル
 
 運用上の注意:
