@@ -1,11 +1,11 @@
 {
-  "name": "devcontainer-test",
+  "name": "pleasanter-quickstart",
   "dockerComposeFile": [
     "../compose.yaml",
     "compose.devcontainer.yaml"
   ],
   "service": "devcontainer",
-  "workspaceFolder": "/workspaces/devcontainer-test",
+  "workspaceFolder": "/workspaces/pleasanter-quickstart",
   "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
   "postStartCommand": "bash .devcontainer/show-pleasanter-url.sh",
   "runServices": [

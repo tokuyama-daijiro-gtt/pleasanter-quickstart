@@ -1,6 +1,6 @@
 ## CodespacesでのPleasanter起動方法
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tokuyama-daijiro-gtt/devcontainer-test)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tokuyama-daijiro-gtt/pleasanter-quickstart)
 
 1. 上の `Open in GitHub Codespaces` ボタンをクリック
 2. GitHub画面で `Create codespace` を選択

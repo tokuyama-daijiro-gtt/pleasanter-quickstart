@@ -2,5 +2,5 @@ services:
   devcontainer:
     image: mcr.microsoft.com/devcontainers/base:ubuntu
     container_name: devcontainer
-    working_dir: /workspaces/devcontainer-test
+    working_dir: /workspaces/pleasanter-quickstart
     command: sleep infinity
