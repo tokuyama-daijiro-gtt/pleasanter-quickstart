@@ -1,10 +1,11 @@
-## Codespaces上のPleasanterの使い方
+## CodespacesでのPleasanter起動方法
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tokuyama-daijiro-gtt/devcontainer-test)
 
 1. 上の `Open in GitHub Codespaces` ボタンをクリック
 2. GitHub画面で `Create codespace` を選択
 3. VSCode画面が表示され、アプリの起動が終了するとターミナルに表示されるURLを開く
+    - URLの表示は `http://localhost:50001` となっていますが、インターネット上のURLにリダイレクトされます
 4. 初期ログインで以下を入力
     - ID: `Administrator`
     - PASSWORD: `pleasanter`
