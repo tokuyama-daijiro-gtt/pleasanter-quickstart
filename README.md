@@ -1,17 +1,16 @@
-# Pleasanter Docker Compose (parameter override enabled)
+## Codespaces上のPleasanterの使い方
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tokuyama-daijiro-gtt/devcontainer-test)
 
-## Codespaces上のPleasanterの使い方
-
 1. 上の `Open in GitHub Codespaces` ボタンをクリック
-2. 起動後、出力されるURLをクリック
+2. GitHub画面で `Create codespace` を選択
+3. VSCode画面が表示され、アプリの起動が終了するとターミナルに表示されるURLを開く
+4. 初期ログインで以下を入力
+    - ID: `Administrator`
+    - PASSWORD: `pleasanter`
+5. パスワード変更を求められるので、任意のパスワードを設定する
 
-### 初期ログイン情報
-
-- ID: `Administrator`
-- PASSWORD: `pleasanter`
-
+# Pleasanter Docker Compose (parameter override enabled)
 
 この構成は、公式手順
 `https://www.pleasanter.org/ja/manual/change-parameters-at-docker-image`
