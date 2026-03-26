@@ -1,5 +1,18 @@
 # Pleasanter Docker Compose (parameter override enabled)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/tokuyama-daijiro-gtt/devcontainer-test)
+
+## Codespaces上のPleasanterの使い方
+
+1. 上の `Open in GitHub Codespaces` ボタンをクリック
+2. 起動後、出力されるURLをクリック
+
+### 初期ログイン情報
+
+- ID: `Administrator`
+- PASSWORD: `pleasanter`
+
+
 この構成は、公式手順
 `https://www.pleasanter.org/ja/manual/change-parameters-at-docker-image`
 に合わせて、`pleasanter/app_data_parameters/` 配下のパラメータファイルを
