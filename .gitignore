@@ -1,1 +1,5 @@
 .devcontainer/.codedefiner_initialized
+.devcontainer/.playwright_ui_checked
+playwright/node_modules/
+playwright/playwright-report/
+playwright/test-results/

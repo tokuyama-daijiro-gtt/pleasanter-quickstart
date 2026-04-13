@@ -38,3 +38,29 @@ Pleasanter コンテナへ反映できるようにしてあります。
 - パラメータファイルを変更した場合、`docker compose restart` だけでは反映されません。
 - 反映には毎回 `docker compose build` が必要です。
 - `PLEASANTER_VERSION` は、`pleasanter/app_data_parameters/` に置いたパラメータファイルの取得元バージョンに合わせてください。
+
+## Playwright補助service
+
+UI 自動操作の実行基盤だけを最小追加しています。自動起動はせず、必要なときだけ明示実行してください。
+
+- service 名: `playwright`
+- app 接続先: `http://pleasanter:8080`
+- 通常の `docker compose up` では起動されません
+- `docker compose run --rm playwright npm test` のように単体実行します
+
+### 起動例
+
+1. Pleasanter を起動
+   - `docker compose up -d pleasanter`
+2. Playwright helper を実行
+   - `docker compose run --rm playwright npm run help`
+3. UI 到達確認を実行
+   - `docker compose run --rm playwright npm run check:ui`
+4. 将来テストを追加したら実行
+   - `docker compose run --rm playwright npm test`
+
+### Codespaces での補足
+
+- Codespaces からも app への接続先は公開 URL ではなく `http://pleasanter:8080` を使います
+- ブラウザで人が開くときだけ、従来どおり転送済みの `50001` ポートを使います
+- `playwright` は `tools` profile 付きなので、既存の devcontainer 起動フローには入りません

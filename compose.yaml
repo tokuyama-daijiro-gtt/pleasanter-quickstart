@@ -41,6 +41,35 @@ services:
       Implem.Pleasanter_Rds_PostgreSQL_OwnerConnectionString: ${Implem_Pleasanter_Rds_PostgreSQL_OwnerConnectionString}
       Implem.Pleasanter_Rds_PostgreSQL_UserConnectionString: ${Implem_Pleasanter_Rds_PostgreSQL_UserConnectionString}
 
+  playwright:
+    container_name: playwright
+    profiles:
+      - tools
+    build:
+      context: ./playwright
+    depends_on:
+      pleasanter:
+        condition: service_started
+    working_dir: /workspace/playwright
+    environment:
+      PLAYWRIGHT_APP_URL: http://pleasanter:8080
+      PLAYWRIGHT_WAIT_FOR_APP: "1"
+      PLAYWRIGHT_WAIT_TIMEOUT_MS: "90000"
+    volumes:
+      - ./playwright:/workspace/playwright
+      - playwright_node_modules:/workspace/playwright/node_modules
+    entrypoint:
+      - /bin/bash
+      - /workspace/playwright/docker-entrypoint.sh
+    command:
+      - npm
+      - run
+      - help
+    stdin_open: true
+    tty: true
+
 volumes:
   pg_data:
     name: ${COMPOSE_PROJECT_NAME:-default}_pg_data_volume
+  playwright_node_modules:
+    name: ${COMPOSE_PROJECT_NAME:-default}_playwright_node_modules_volume

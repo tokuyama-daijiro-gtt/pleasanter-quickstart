@@ -1,0 +1,13 @@
+{
+  "name": "pleasanter-playwright",
+  "private": true,
+  "scripts": {
+    "help": "node -e \"console.log(['Playwright helper container is ready.','- npm run check:ui','- npm test','- npm run codegen'].join('\\n'))\"",
+    "check:ui": "node ./scripts/check-ui.cjs",
+    "test": "playwright test",
+    "codegen": "playwright codegen ${PLAYWRIGHT_APP_URL:-http://pleasanter:8080}"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.0"
+  }
+}
