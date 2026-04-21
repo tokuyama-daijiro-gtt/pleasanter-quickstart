@@ -1,0 +1,11 @@
+{
+  "name": "pleasanter-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "access": "node access-pleasanter.js"
+  },
+  "dependencies": {
+    "playwright": "1.49.1"
+  }
+}

@@ -41,6 +41,18 @@ services:
       Implem.Pleasanter_Rds_PostgreSQL_OwnerConnectionString: ${Implem_Pleasanter_Rds_PostgreSQL_OwnerConnectionString}
       Implem.Pleasanter_Rds_PostgreSQL_UserConnectionString: ${Implem_Pleasanter_Rds_PostgreSQL_UserConnectionString}
 
+  playwright:
+    container_name: playwright
+    build:
+      context: ./playwright
+    depends_on:
+      - pleasanter
+    environment:
+      TARGET_URL: http://pleasanter:8080
+      LOGIN_ID: Administrator
+      LOGIN_PASSWORD: pleasanter
+      CHANGED_PASSWORD: pleasanter-qs
+
 volumes:
   pg_data:
     name: ${COMPOSE_PROJECT_NAME:-default}_pg_data_volume
