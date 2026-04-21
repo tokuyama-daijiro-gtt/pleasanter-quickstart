@@ -6,6 +6,7 @@ const targetUrl = process.env.TARGET_URL || "http://pleasanter:8080";
 const loginId = process.env.LOGIN_ID || "Administrator";
 const loginPassword = process.env.LOGIN_PASSWORD || "pleasanter";
 const changedPassword = process.env.CHANGED_PASSWORD || "pleasanter-qs";
+const loginPasswords = Array.from(new Set([loginPassword, changedPassword].filter(Boolean)));
 const apiKeyFile = process.env.API_KEY_FILE || "/workspace/.devcontainer/pleasanter-api-key";
 const maxAttempts = Number(process.env.ACCESS_RETRY_COUNT || 30);
 const retryDelayMs = Number(process.env.ACCESS_RETRY_DELAY_MS || 2000);
@@ -100,17 +101,33 @@ async function main() {
         const title = await page.title();
         console.log(`[playwright] Loaded ${page.url()} status=${status} title="${title}"`);
 
-        await page.locator("#Users_LoginId").fill(loginId);
-        await page.locator("#Users_Password").fill(loginPassword);
-        const beforeLoginUrl = page.url();
-        await page.locator("#Login").click();
-        await waitForLoginResult(page, beforeLoginUrl);
-        await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-        await changePasswordIfRequired(page);
-        await createAndSaveApiKey(page);
+        for (const password of loginPasswords) {
+          try {
+            await page.locator("#Users_LoginId").fill(loginId);
+            await page.locator("#Users_Password").fill(password);
+            const beforeLoginUrl = page.url();
+            await page.locator("#Login").click();
+            await waitForLoginResult(page, beforeLoginUrl);
+            await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+            await changePasswordIfRequired(page);
+            await createAndSaveApiKey(page);
 
-        console.log(`[playwright] Logged in. currentUrl=${page.url()} title="${await page.title()}"`);
-        return;
+            console.log(`[playwright] Logged in. currentUrl=${page.url()} title="${await page.title()}"`);
+            return;
+          } catch (error) {
+            const nextPasswordIndex = loginPasswords.indexOf(password) + 1;
+            if (nextPasswordIndex >= loginPasswords.length) {
+              throw error;
+            }
+
+            console.log("[playwright] Login failed with the current password. Trying the next password.");
+            await page.goto(targetUrl, {
+              waitUntil: "domcontentloaded",
+              timeout: 10000
+            });
+            await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+          }
+        }
       } catch (error) {
         if (attempt === maxAttempts) {
           throw error;
