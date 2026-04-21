@@ -9,14 +9,18 @@
   "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
   "postAttachCommand": "bash .devcontainer/show-pleasanter-url.sh",
   "runServices": [
-    "devcontainer"
+    "devcontainer",
+    "ui"
   ],
   "shutdownAction": "stopCompose",
   "remoteUser": "vscode",
-  "forwardPorts": [50001],
+  "forwardPorts": [50001, 3000],
   "portsAttributes": {
     "50001": {
       "label": "Pleasanter"
+    },
+    "3000": {
+      "label": "Pleasanter Quickstart UI"
     }
   }
 }

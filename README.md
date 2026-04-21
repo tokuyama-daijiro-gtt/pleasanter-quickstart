@@ -6,6 +6,7 @@
 2. GitHub画面で `Create codespace` を選択
 3. VSCode画面が表示され、アプリの起動が終了するとターミナルに表示されるURLを開く
     - URLの表示は `http://localhost:50001` となっていますが、インターネット上のURLにリダイレクトされます
+    - Next.js UI は `http://localhost:3000` で起動します
 4. 初期ログインで以下を入力
     - ID: `Administrator`
     - PASSWORD: `pleasanter`
@@ -22,6 +23,7 @@ Pleasanter コンテナへ反映できるようにしてあります。
 
 - `compose.yaml`
 - `.env`
+- `ui/`
 - `pleasanter/app_data_parameters/`
 - `pleasanter/Pleasanter/Dockerfile`
 - `pleasanter/CodeDefiner/Dockerfile`
@@ -53,3 +55,22 @@ Compose ネットワーク内からアクセスするため、対象 URL は `ht
 
 devcontainer 初回起動時は `.devcontainer/init-codedefiner.sh` から自動実行されます。
 一度成功すると `.devcontainer/.playwright_initialized` が作成され、以降は自動実行をスキップします。
+
+## Next.js UI
+
+`ui/` 配下に、Pleasanter を永続層として使う業務アプリケーションのベースになる Next.js アプリを配置しています。
+
+- App Router / TypeScript / ESLint を使用
+- 画面本体は Client Component として実装
+- SSR のデータ取得は使わず、ブラウザ側の操作で Pleasanter API を呼び出し
+- Pleasanter API キーは Playwright の初期処理で `.devcontainer/pleasanter-api-key` に保存
+- UI サービス起動時に `ui/public/runtime-config.json` を生成し、API キーと API ベースパスを画面へ渡す
+- Compose ネットワーク内では Next.js の rewrite で `/pleasanter/*` を `http://pleasanter:8080/*` に転送
+
+devcontainer では API キー取得後に `ui` サービスが起動し、`http://localhost:3000` で開けます。
+
+手動で起動する場合は以下を実行してください。
+
+```bash
+docker compose up --build ui
+```

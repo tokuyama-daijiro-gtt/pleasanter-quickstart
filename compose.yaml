@@ -58,6 +58,36 @@ services:
       CHANGED_PASSWORD: pleasanter-qs
       API_KEY_FILE: /workspace/.devcontainer/pleasanter-api-key
 
+  ui:
+    container_name: ui
+    build:
+      context: ./ui
+    depends_on:
+      pleasanter:
+        condition: service_started
+      playwright:
+        condition: service_completed_successfully
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_TELEMETRY_DISABLED: '1'
+      PLEASANTER_INTERNAL_URL: http://pleasanter:8080
+      PLEASANTER_API_KEY_FILE: /workspace/.devcontainer/pleasanter-api-key
+      NEXT_PUBLIC_PLEASANTER_API_BASE_PATH: /pleasanter
+    volumes:
+      - type: bind
+        source: ./ui
+        target: /app
+      - type: volume
+        source: ui_node_modules
+        target: /app/node_modules
+      - type: bind
+        source: ./.devcontainer
+        target: /workspace/.devcontainer
+        read_only: true
+
 volumes:
   pg_data:
     name: ${COMPOSE_PROJECT_NAME:-default}_pg_data_volume
+  ui_node_modules:
+    name: ${COMPOSE_PROJECT_NAME:-default}_ui_node_modules_volume

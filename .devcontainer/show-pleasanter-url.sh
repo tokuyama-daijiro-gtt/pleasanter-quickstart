@@ -3,13 +3,18 @@ set -euo pipefail
 
 port="50001"
 url="http://localhost:${port}"
+ui_port="3000"
+ui_url="http://localhost:${ui_port}"
 
 cat <<EOF
 ========================================
-Pleasanter is ready
+Pleasanter quickstart is ready
 ========================================
-URL:
+Pleasanter:
   ${url}
+
+UI:
+  ${ui_url}
 
 How to open:
   1) Ctrl (or Cmd) + Click the URL above

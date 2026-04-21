@@ -1,0 +1,27 @@
+{
+  "name": "pleasanter-quickstart-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node ./scripts/write-runtime-config.mjs",
+    "dev": "next dev",
+    "prebuild": "node ./scripts/write-runtime-config.mjs",
+    "build": "next build",
+    "start": "next start",
+    "check": "tsc --noEmit && eslint ."
+  },
+  "dependencies": {
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  }
+}
