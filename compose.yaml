@@ -47,11 +47,16 @@ services:
       context: ./playwright
     depends_on:
       - pleasanter
+    volumes:
+      - type: bind
+        source: ./.devcontainer
+        target: /workspace/.devcontainer
     environment:
       TARGET_URL: http://pleasanter:8080
       LOGIN_ID: Administrator
       LOGIN_PASSWORD: pleasanter
       CHANGED_PASSWORD: pleasanter-qs
+      API_KEY_FILE: /workspace/.devcontainer/pleasanter-api-key
 
 volumes:
   pg_data:
