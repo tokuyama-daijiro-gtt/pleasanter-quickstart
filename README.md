@@ -27,6 +27,7 @@ Pleasanter コンテナへ反映できるようにしてあります。
 - `pleasanter/app_data_parameters/`
 - `pleasanter/Pleasanter/Dockerfile`
 - `pleasanter/CodeDefiner/Dockerfile`
+- `pleasanter/InitialSetup/`
 
 ## パラメータ変更手順
 
@@ -41,20 +42,20 @@ Pleasanter コンテナへ反映できるようにしてあります。
 - 反映には毎回 `docker compose build` が必要です。
 - `PLEASANTER_VERSION` は、`pleasanter/app_data_parameters/` に置いたパラメータファイルの取得元バージョンに合わせてください。
 
-## Playwrightでログイン確認
+## Pleasanter 初期セットアップ
 
-Pleasanter 起動後に、以下で Playwright サービスから画面へアクセスし、初期ユーザーでログインします。
+Pleasanter 起動後に、以下で初期セットアップサービスから画面へアクセスし、初期ユーザーでログインします。
 初回ログイン時にパスワード変更ダイアログが表示された場合は、`pleasanter-qs` に変更します。
 
 ```bash
-docker compose up --build playwright
+docker compose up --build pleasanter-initial-setup
 ```
 
 Compose ネットワーク内からアクセスするため、対象 URL は `http://pleasanter:8080` にしています。
 これはホスト側で開く `http://localhost:50001` と同じ Pleasanter 画面です。
 
-devcontainer 初回起動時は `.devcontainer/init-codedefiner.sh` から自動実行されます。
-一度成功すると `.devcontainer/.playwright_initialized` が作成され、以降は自動実行をスキップします。
+devcontainer 初回起動時は `.devcontainer/initialize-pleasanter.sh` から自動実行されます。
+一度成功すると `.devcontainer/.pleasanter_initial_setup_initialized` が作成され、以降は自動実行をスキップします。
 
 ## Next.js UI
 
@@ -63,7 +64,7 @@ devcontainer 初回起動時は `.devcontainer/init-codedefiner.sh` から自動
 - App Router / TypeScript / ESLint を使用
 - 画面本体は Client Component として実装
 - SSR のデータ取得は使わず、ブラウザ側の操作で Pleasanter API を呼び出し
-- Pleasanter API キーは Playwright の初期処理で `.devcontainer/pleasanter-api-key` に保存
+- Pleasanter API キーは Pleasanter 初期セットアップで `.devcontainer/pleasanter-api-key` に保存
 - UI サービス起動時に `ui/public/runtime-config.json` を生成し、API キーと API ベースパスを画面へ渡す
 - Compose ネットワーク内では Next.js の rewrite で `/pleasanter/*` を `http://pleasanter:8080/*` に転送
 

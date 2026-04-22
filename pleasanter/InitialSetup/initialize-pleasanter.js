@@ -26,11 +26,11 @@ async function changePasswordIfRequired(page) {
   const changePasswordForm = page.locator("#ChangePasswordForm");
 
   if (!(await changePasswordForm.isVisible().catch(() => false))) {
-    console.log("[playwright] Password change dialog was not shown.");
+    console.log("[initial-setup] Password change dialog was not shown.");
     return;
   }
 
-  console.log("[playwright] Password change dialog was shown. Changing initial password.");
+  console.log("[initial-setup] Password change dialog was shown. Changing initial password.");
   await page.locator("#Users_ChangedPassword").fill(changedPassword);
   await page.locator("#Users_ChangedPasswordValidator").fill(changedPassword);
   await page.locator("#ChangePassword").click();
@@ -40,13 +40,13 @@ async function changePasswordIfRequired(page) {
     changePasswordForm.waitFor({ state: "detached", timeout: 15000 })
   ]);
   await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-  console.log("[playwright] Initial password was changed.");
+  console.log("[initial-setup] Initial password was changed.");
 }
 
 async function createAndSaveApiKey(page) {
   const editApiUrl = new URL("/users/editapi", targetUrl).toString();
 
-  console.log(`[playwright] Accessing API key editor: ${editApiUrl}`);
+  console.log(`[initial-setup] Accessing API key editor: ${editApiUrl}`);
   await page.goto(editApiUrl, {
     waitUntil: "domcontentloaded",
     timeout: 10000
@@ -58,14 +58,14 @@ async function createAndSaveApiKey(page) {
 
   const currentApiKey = (await apiKey.textContent())?.trim() || "";
   if (currentApiKey) {
-    console.log("[playwright] API key already exists. Saving the existing key.");
+    console.log("[initial-setup] API key already exists. Saving the existing key.");
     await fs.mkdir(path.dirname(apiKeyFile), { recursive: true });
     await fs.writeFile(apiKeyFile, `${currentApiKey}\n`, { mode: 0o600 });
-    console.log(`[playwright] API key was saved to ${apiKeyFile}.`);
+    console.log(`[initial-setup] API key was saved to ${apiKeyFile}.`);
     return;
   }
 
-  console.log("[playwright] Creating API key.");
+  console.log("[initial-setup] Creating API key.");
   await page.locator("#CreateApiKey").click();
   await page.waitForFunction(() => document.querySelector("#ApiKey")?.textContent?.trim(), null, {
     timeout: 15000
@@ -79,7 +79,7 @@ async function createAndSaveApiKey(page) {
 
   await fs.mkdir(path.dirname(apiKeyFile), { recursive: true });
   await fs.writeFile(apiKeyFile, `${createdApiKey}\n`, { mode: 0o600 });
-  console.log(`[playwright] API key was created and saved to ${apiKeyFile}.`);
+  console.log(`[initial-setup] API key was created and saved to ${apiKeyFile}.`);
 }
 
 async function main() {
@@ -89,7 +89,7 @@ async function main() {
   try {
     for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       try {
-        console.log(`[playwright] Accessing ${targetUrl} (${attempt}/${maxAttempts})`);
+        console.log(`[initial-setup] Accessing ${targetUrl} (${attempt}/${maxAttempts})`);
         const response = await page.goto(targetUrl, {
           waitUntil: "domcontentloaded",
           timeout: 10000
@@ -99,7 +99,7 @@ async function main() {
 
         const status = response ? response.status() : "no response";
         const title = await page.title();
-        console.log(`[playwright] Loaded ${page.url()} status=${status} title="${title}"`);
+        console.log(`[initial-setup] Loaded ${page.url()} status=${status} title="${title}"`);
 
         for (const password of loginPasswords) {
           try {
@@ -112,7 +112,7 @@ async function main() {
             await changePasswordIfRequired(page);
             await createAndSaveApiKey(page);
 
-            console.log(`[playwright] Logged in. currentUrl=${page.url()} title="${await page.title()}"`);
+            console.log(`[initial-setup] Logged in. currentUrl=${page.url()} title="${await page.title()}"`);
             return;
           } catch (error) {
             const nextPasswordIndex = loginPasswords.indexOf(password) + 1;
@@ -120,7 +120,7 @@ async function main() {
               throw error;
             }
 
-            console.log("[playwright] Login failed with the current password. Trying the next password.");
+            console.log("[initial-setup] Login failed with the current password. Trying the next password.");
             await page.goto(targetUrl, {
               waitUntil: "domcontentloaded",
               timeout: 10000
@@ -133,7 +133,7 @@ async function main() {
           throw error;
         }
 
-        console.log(`[playwright] Pleasanter is not ready yet: ${error.message}`);
+        console.log(`[initial-setup] Pleasanter is not ready yet: ${error.message}`);
         await sleep(retryDelayMs);
       }
     }
@@ -143,7 +143,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error("[playwright] Failed to access Pleasanter.");
+  console.error("[initial-setup] Failed to access Pleasanter.");
   console.error(error);
   process.exit(1);
 });
