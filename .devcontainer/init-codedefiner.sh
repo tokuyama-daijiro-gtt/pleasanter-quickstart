@@ -4,7 +4,8 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "${script_dir}/.." && pwd)"
 codedefiner_marker_file="${script_dir}/.codedefiner_initialized"
-playwright_marker_file="${script_dir}/.playwright_initialized"
+initial_setup_marker_file="${script_dir}/.pleasanter_initial_setup_initialized"
+legacy_playwright_marker_file="${script_dir}/.playwright_initialized"
 
 cd "${repo_root}"
 
@@ -21,15 +22,19 @@ else
   exit 1
 fi
 
-if [[ ! -f "${playwright_marker_file}" ]]; then
-  echo "[init] Running initial Playwright login with: docker compose up --build playwright"
-  if docker compose up --build playwright; then
-    touch "${playwright_marker_file}"
-    echo "[init] initial playwright login command succeeded."
+if [[ -f "${legacy_playwright_marker_file}" && ! -f "${initial_setup_marker_file}" ]]; then
+  touch "${initial_setup_marker_file}"
+fi
+
+if [[ ! -f "${initial_setup_marker_file}" ]]; then
+  echo "[init] Running Pleasanter initial setup with: docker compose up --build pleasanter-initial-setup"
+  if docker compose up --build pleasanter-initial-setup; then
+    touch "${initial_setup_marker_file}"
+    echo "[init] Pleasanter initial setup command succeeded."
   else
-    echo "[init] initial playwright login command failed." >&2
+    echo "[init] Pleasanter initial setup command failed." >&2
     exit 1
   fi
 else
-  echo "[init] initial playwright login was already completed. Skipping."
+  echo "[init] Pleasanter initial setup was already completed. Skipping."
 fi

@@ -1,4 +1,5 @@
 .devcontainer/.codedefiner_initialized
+.devcontainer/.pleasanter_initial_setup_initialized
 .devcontainer/.playwright_initialized
 .devcontainer/pleasanter-api-key
 ui/.next
