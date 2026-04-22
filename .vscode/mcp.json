@@ -1,0 +1,20 @@
+{
+  "inputs": [],
+  "servers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--headless=true",
+        "--isolated=true",
+        "--executablePath=/usr/bin/google-chrome",
+        "--no-usage-statistics"
+      ],
+      "env": {
+        "CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS": "true"
+      }
+    }
+  }
+}

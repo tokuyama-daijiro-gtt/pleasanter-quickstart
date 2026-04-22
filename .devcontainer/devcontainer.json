@@ -6,7 +6,13 @@
   ],
   "service": "devcontainer",
   "workspaceFolder": "/workspaces/pleasanter-quickstart",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
   "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/initialize-pleasanter.sh",
+  "postCreateCommand": "bash .devcontainer/setup-chrome-devtools-mcp.sh",
   "postAttachCommand": "bash .devcontainer/show-pleasanter-url.sh",
   "runServices": [
     "devcontainer",

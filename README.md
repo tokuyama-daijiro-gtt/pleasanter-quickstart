@@ -75,3 +75,18 @@ devcontainer では API キー取得後に `ui` サービスが起動し、`http
 ```bash
 docker compose up --build ui
 ```
+
+## Pleasanter 向け AI エージェント運用資産
+
+GitHub Copilot CLI / Codex 系エージェントから Pleasanter の定型業務アプリ作成支援を扱いやすくするため、最小限の共有資産を追加しています。
+
+- `.github/copilot-instructions.md`: Copilot 向けのリポジトリ前提、実行フロー、安全ルール
+- `AGENT.md`: Codex 系エージェント向けのルートガイド
+- `docs/pleasanter-agent/README.md`: Pleasanter app 作成支援の運用概要
+- `docs/pleasanter-agent/skills.md`: app design / Chrome DevTools MCP app build / safety / reporting / troubleshooting の skill cards
+- `docs/pleasanter-agent/chrome-devtools-mcp-playbook.md`: Chrome DevTools MCP で Pleasanter UI を操作してアプリを作成・設定・検証するプレイブック
+- `docs/pleasanter-agent/api-create-site-example.md`: UI 操作が詰まった場合や一括投入が必要な場合の API fallback 例
+
+現時点では、既存の Docker Compose / Next.js UI / Pleasanter API 連携の実装は変更せず、Codespaces で起動中の Pleasanter 本体 UI を Chrome DevTools MCP で操作してアプリ作成を進める方針にしています。API は UI 操作が詰まった場合や一括データ投入が必要な場合の fallback として扱います。
+
+Codespace 作成時は `.devcontainer/setup-chrome-devtools-mcp.sh` により、devcontainer 内へ Node.js 22 / Google Chrome Stable を用意し、Codex CLI に `chrome-devtools` MCP server を登録します。VS Code / GitHub Copilot 向けには `.vscode/mcp.json` も配置しています。MCP tools が見えない場合は、Codespace の rebuild 後に VS Code を reload し、Codex セッションを開き直してください。
