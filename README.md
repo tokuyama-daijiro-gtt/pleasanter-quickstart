@@ -54,7 +54,7 @@ docker compose up --build pleasanter-initial-setup
 Compose ネットワーク内からアクセスするため、対象 URL は `http://pleasanter:8080` にしています。
 これはホスト側で開く `http://localhost:50001` と同じ Pleasanter 画面です。
 
-devcontainer 初回起動時は `.devcontainer/init-codedefiner.sh` から自動実行されます。
+devcontainer 初回起動時は `.devcontainer/initialize-pleasanter.sh` から自動実行されます。
 一度成功すると `.devcontainer/.pleasanter_initial_setup_initialized` が作成され、以降は自動実行をスキップします。
 
 ## Next.js UI

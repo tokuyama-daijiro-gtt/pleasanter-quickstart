@@ -6,7 +6,7 @@
   ],
   "service": "devcontainer",
   "workspaceFolder": "/workspaces/pleasanter-quickstart",
-  "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/init-codedefiner.sh",
+  "initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/initialize-pleasanter.sh",
   "postAttachCommand": "bash .devcontainer/show-pleasanter-url.sh",
   "runServices": [
     "devcontainer",
