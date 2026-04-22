@@ -2,5 +2,6 @@
 .devcontainer/.playwright_initialized
 .devcontainer/pleasanter-api-key
 ui/.next
+ui/next-env.d.ts
 ui/node_modules
 ui/public/runtime-config.json
